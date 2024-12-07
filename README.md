@@ -4,7 +4,7 @@ Portfolio Homework for EECS 398: Practical Data Science
 ## Step 1: Introduction 
 The dataset we chose to use is the power outages dataset describing major power outage events in the continental U.S., which we retrived from [this ScienceDirect article](https://www.sciencedirect.com/science/article/pii/S2352340918307182) and [this Purdue link to the dataset](https://engineering.purdue.edu/LASCI/research-data/outages). 
 
-### Reasoning behind selection:
+### Reasoning Behind selection:
 We are not familiar with League of Legends, and power outages were more interesting to us than recipes. The example questions for recipes seem easier to intuitively predict ourselves because food and recipes are familiar, whereas we are genuinely curious about what we might find in the power outages data because we are less familiar with it. This dataset also has a high impact, since power outages affect many people
 
 ### Research Question:
@@ -25,7 +25,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 
 ## Step 2: Data Cleaning and Exploratory Analysis
 - ### Data Cleaning: 
-1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION annd CUSTOMERS.AFFECTED both had columns that contained NaN values. We decided to drop instead of imputing so that our data would not be skewed.
+1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION annd CUSTOMERS.AFFECTED both had columns that contained NaN values.
 2. We dropped any rows containing NaN values for the two columns identified as containing those values. 
 3. We remaned columns to easier to use/read names. 
 
@@ -40,24 +40,28 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   | MN     | Minnesota |       1860 | severe weather |    -1.4 |       60000 |
 
 - ### Univariate Analysis: 
-  1. 
-Embed at least one plotly plot you created in your notebook that displays the distribution of a single column (see Part 2: Report for instructions). Include a 1-2 sentence explanation about your plot, making sure to describe and interpret any trends present, and how they answer your initial question. (Your notebook will likely have more visualizations than your website, and that’s fine. Feel free to embed more than one univariate visualization in your website if you’d like, but make sure that each embedded plot is accompanied by a description.)
-<iframe
-  src="assets/pie-chart.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
-<iframe
-  src="assets/hist.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+  1. **Pie Chart -- Distribution of Outage Causes in Dataset**
+  - This plot shows the distribition of outage causes within our dataset. It shows that there is a large percentage of outages caused by severe weather, almost 2/3, followed by intentional attack and system operability disruptions, making up almost 1/4 combined.
+  - This helps us answer our initial question since it addresses the proportion of causes behind outages, which may affect duration. 
+  
+  <iframe
+    src="assets/pie-chart.html"
+    width="800"
+    height="600"
+    frameborder="0"
+  ></iframe>
+
+  2. **Histogram -- Distribution of Duration**
+  - This plot shows the distribition of power outage durations within our dataset. It shows a trend in our data, with most power outage events being under 1000 minutes, with longer outage durations being rarer. 
+  - This helps us answer our initial question since it addresses the distribution of durations of outages and how they are spread. 
+  <iframe
+    src="assets/hist.html"
+    width="800"
+    height="600"
+    frameborder="0"
+  ></iframe>
 
 - ### Bivariate Analysis: 
-Embed at least one plotly plot that displays the relationship between two columns. Include a 1-2 sentence explanation about your plot, making sure to describe and interpret any trends present and how they answer your initial question. (Your notebook will likely have more visualizations than your website, and that’s fine. Feel free to embed more than one bivariate visualization in your website if you’d like, but make sure that each embedded plot is accompanied by a description.)
-
 <iframe
   src="assets/choropleth.html"
   width="800"
@@ -84,12 +88,11 @@ Embed at least one grouped table or pivot table in your website and explain its 
 
 Ths grouped table allows us to look at the most common cause of outage for each state as well as the mean duration in minutes for each state. 
 - ### Imputation: 
-If you imputed any missing values, visualize the distributions of the imputed columns before and after imputation. Describe which imputation technique you chose to use and why. If you didn’t fill in any missing values, discuss why not.
+We decided not to impute duration because we wanted to use start time and end time to fill in duration values. However, we realized that if there was NaN for duration, then at least one of the start time or end time was also NaN. We did not feel comfortable filling in with any other values since there is a lot of variety in all of our columns, so something like the mean would not accurately reflect the data.
 
 ## Step 3: Framing a Prediction Problem 
 - ### Problem Identification:
-Clearly state your prediction problem and type (classification or regression). If you are building a classifier, make sure to state whether you are performing binary classification or multiclass classification. Report the response variable (i.e. the variable you are predicting) and why you chose it, the metric you are using to evaluate your model and why you chose it over other suitable metrics (e.g. accuracy vs. F1-score).
-Note: Make sure to justify what information you would know at the “time of prediction” and to only train your model using those features. For instance, if we wanted to predict your Final Exam grade, we couldn’t use your Portfolio Homework grade, because we (probably) won’t have the Portfolio Homework graded before the Final Exam! Feel free to ask questions if you’re not sure.
+Our prediction problem is: How do cause of outage, state, and number of customers affected associated with the duration of an outage? This is a regression problem because we are trying to predict the value, duration. We chose the response value, duration, because given the cause, US state, and number of customers affected, people are likely curious about how long the outage will last. We will know all of the features (state, cause, and customers affected) at the time of prediction because these values are determined before the outage is resolved. The metric that we will use to evaluate our model is mean squared error because we are trying to minimize how far our predictions are from the actual duration that the outage lasted.
 
 ## Step 4: Baseline Model 
 - Our model uses four features to predict the duration of a power outage. The features are state which is nominal, cause which we are treating as nominal (we have not ranked causes in any way), anomaly level which is quantitative, and customers affected which is quantitative. We performed one hot encoding using OneHotEncoder for the categorical features. We also used PolynomialFeatures for the quantitative features.
