@@ -77,8 +77,8 @@ Tip: Make sure to hit all of the points above: many Portfolio Homeworks in the p
 
 ## Step 5: Final Model 
 - ### Final Model: 
-State the features you added and why they are good for the data and prediction task. Note that you can’t simply state “these features improved my accuracy”, since you’d need to choose these features and fit a model before noticing that – instead, talk about why you believe these features improved your model’s performance from the perspective of the data generating process.
+The feature that we added was a StandardScaler for the numerical columns. The two numerical columns were number of customers affected and the anomaly level which have different units. Since these features have different units, standardizing improved the accuracy of predictions.
+Another feature that we added was a search for the best polynomial feature number by using GridSearchCV. Since we somewhat randomly chose 8 for the original model, it made sense for us to do a search for the best value. 
 
-Describe the modeling algorithm you chose, the hyperparameters that ended up performing the best, and the method you used to select hyperparameters and your overall model. Describe how your Final Model’s performance is an improvement over your Baseline Model’s performance.
-
-Optional: Include a visualization that describes your model’s performance, e.g. a confusion matrix, if applicable.
+We used Linear Regression and the most optimal hyperparemter for polynomial feature was one. This indicated to us that we should not have used it in our original model. We used GridSearchCV to select the hyperparameters.
+Our Final Model performed better for both training and validation data but more significantly for validation data. The ability to predict unseen data is important and our Final Model was much better at this. 
