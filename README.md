@@ -29,15 +29,15 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION annd CUSTOMERS.AFFECTED both had columns that contained NaN values. We decided to drop instead of imputing so that our data would not be skewed.
 2. We dropped any rows containing NaN values for the two columns identified as containing those values. 
 
-Below is the head of the cleaned data: 
+  Below is the head of the cleaned data: 
 
-| abbr   | state     |   duration | cause          |   level |   customers |
-|:-------|:----------|-----------:|:---------------|--------:|------------:|
-| MN     | Minnesota |       3060 | severe weather |    -0.3 |       70000 |
-| MN     | Minnesota |       3000 | severe weather |    -1.5 |       70000 |
-| MN     | Minnesota |       2550 | severe weather |    -0.1 |       68200 |
-| MN     | Minnesota |       1740 | severe weather |     1.2 |      250000 |
-| MN     | Minnesota |       1860 | severe weather |    -1.4 |       60000 |
+  | abbr   | state     |   duration | cause          |   level |   customers |
+  |:-------|:----------|-----------:|:---------------|--------:|------------:|
+  | MN     | Minnesota |       3060 | severe weather |    -0.3 |       70000 |
+  | MN     | Minnesota |       3000 | severe weather |    -1.5 |       70000 |
+  | MN     | Minnesota |       2550 | severe weather |    -0.1 |       68200 |
+  | MN     | Minnesota |       1740 | severe weather |     1.2 |      250000 |
+  | MN     | Minnesota |       1860 | severe weather |    -1.4 |       60000 |
 
 - ### Univariate Analysis: 
 Embed at least one plotly plot you created in your notebook that displays the distribution of a single column (see Part 2: Report for instructions). Include a 1-2 sentence explanation about your plot, making sure to describe and interpret any trends present, and how they answer your initial question. (Your notebook will likely have more visualizations than your website, and that’s fine. Feel free to embed more than one univariate visualization in your website if you’d like, but make sure that each embedded plot is accompanied by a description.)
