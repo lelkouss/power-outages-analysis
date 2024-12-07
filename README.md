@@ -26,9 +26,10 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 
 ## Step 2: Data Cleaning and Exploratory Analysis
 - ### Data Cleaning: 
-1. We  first  cheecked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION annd CUSTOMERS.AFFECTED both had columns that contained NaN values. We decided to drop instead of imputing so that our data would not be 
+1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION annd CUSTOMERS.AFFECTED both had columns that contained NaN values. We decided to drop instead of imputing so that our data would not be skewed.
+2. We dropped any rows containing NaN values for the two columns identified as containing those values. 
 
-Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process. Show the head of your cleaned DataFrame (see Part 2: Report for instructions).
+Below is the head of the cleaned data: 
 
 | abbr   | state     |   duration | cause          |   level |   customers |
 |:-------|:----------|-----------:|:---------------|--------:|------------:|
@@ -82,10 +83,7 @@ Note: Make sure to justify what information you would know at the “time of pre
 
 Our model uses four features to predict the duration of a power outage. The features are state which is nominal, cause which we are treating as nominal (we have not ranked causes in any way), anomaly level which is quantitative, and customers affected which is quantitative. We performed one hot encoding using OneHotEncoder for the categorical features. We also used PolynomialFeatures for the quantitative features.
 ed PolynrmialFeatures f we took mean squared error for the training data and mean squared data for the validation data. For one of our train test splits, we found the averages of these values to be Training MSE: 14407167.553053152, Validation MSE: 32018249.814064648. We do not believe this model is good because considering that
-duration is measured in minutes, these are very large discrepencies. 
- not you believe your current model is “good” and why.
-
-Tip: Make sure to hit all of the points above: many Portfolio Homeworks in the past have lost points for not doing so.
+duration is measured in minutes, these are very large discrepencies. meworks in the past have lost points for not doing so.
 
 ## Step 5: Final Model 
 - ### Final Model: 
