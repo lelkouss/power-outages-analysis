@@ -4,22 +4,30 @@ Portfolio Homework for EECS 398: Practical Data Science
 ## Step 1: Introduction 
 The dataset we chose to use is the power outages dataset describing major power outage events in the continental U.S., which we retrived from [this ScienceDirect article](https://www.sciencedirect.com/science/article/pii/S2352340918307182) and [this Purdue link to the dataset](https://engineering.purdue.edu/LASCI/research-data/outages). 
 
-**Reasoning behind selection:**
+### Reasoning behind selection:
 We are not familiar with League of Legends, and power outages were more interesting to us than recipes. The example questions for recipes seem easier to intuitively predict ourselves because food and recipes are familiar, whereas we are genuinely curious about what we might find in the power outages data because we are less familiar with it. This dataset also has a high impact, since power outages affect many people
 
 
-#### Research Question:
+### Research Question:
 How do cause of outage, state, number of customers affected, and anomaly level affect the duration of an outage? 
 
-#### Data Information:
+### Data Information:
 - Size: 1534 rows x 57 columns
 - Columns of Interest: 
 
-
- Report the number of rows in the dataset, the names of the columns that are relevant to your question, and descriptions of those relevant columns.
+| name                 | description                                                  |
+|:---------------------|:-------------------------------------------------------------|
+| 'CAUSE.CATEGORY'     | Type of cause of event                                       |
+| 'U.S._STATE'         | State event occured in                                       |
+| 'POSTAL.CODE'	       | Abbreviation of state                                        |
+| 'CUSTOMERS.AFFECTED' | Number of customers affected by outage event                 |
+| 'ANOMALY.LEVEL'	     | Oceanic El Niño/La Niña (ONI) index -- 3 month  running mean | 
+| 'OUTAGE.DURATION'    | Duration of outage in minutes                                | 
 
 ## Step 2: Data Cleaning and Exploratory Analysis
 - ### Data Cleaning: 
+
+We 
 Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process. Show the head of your cleaned DataFrame (see Part 2: Report for instructions).
 
 | abbr   | state     |   duration | cause          |   level |   customers |
