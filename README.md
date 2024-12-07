@@ -7,7 +7,6 @@ The dataset we chose to use is the power outages dataset describing major power 
 ### Reasoning behind selection:
 We are not familiar with League of Legends, and power outages were more interesting to us than recipes. The example questions for recipes seem easier to intuitively predict ourselves because food and recipes are familiar, whereas we are genuinely curious about what we might find in the power outages data because we are less familiar with it. This dataset also has a high impact, since power outages affect many people
 
-
 ### Research Question:
 How do cause of outage, state, number of customers affected, and anomaly level affect the duration of an outage? 
 
@@ -28,6 +27,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 - ### Data Cleaning: 
 1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION annd CUSTOMERS.AFFECTED both had columns that contained NaN values. We decided to drop instead of imputing so that our data would not be skewed.
 2. We dropped any rows containing NaN values for the two columns identified as containing those values. 
+3. We remaned columns to easier to use/read names. 
 
   Below is the head of the cleaned data: 
 
@@ -40,9 +40,16 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   | MN     | Minnesota |       1860 | severe weather |    -1.4 |       60000 |
 
 - ### Univariate Analysis: 
+  1. 
 Embed at least one plotly plot you created in your notebook that displays the distribution of a single column (see Part 2: Report for instructions). Include a 1-2 sentence explanation about your plot, making sure to describe and interpret any trends present, and how they answer your initial question. (Your notebook will likely have more visualizations than your website, and that’s fine. Feel free to embed more than one univariate visualization in your website if you’d like, but make sure that each embedded plot is accompanied by a description.)
 <iframe
   src="assets/pie-chart.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+<iframe
+  src="assets/hist.html"
   width="800"
   height="600"
   frameborder="0"
@@ -53,6 +60,12 @@ Embed at least one plotly plot that displays the relationship between two column
 
 <iframe
   src="assets/choropleth.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+<iframe
+  src="assets/box-plot.html"
   width="800"
   height="600"
   frameborder="0"
@@ -79,16 +92,15 @@ Clearly state your prediction problem and type (classification or regression). I
 Note: Make sure to justify what information you would know at the “time of prediction” and to only train your model using those features. For instance, if we wanted to predict your Final Exam grade, we couldn’t use your Portfolio Homework grade, because we (probably) won’t have the Portfolio Homework graded before the Final Exam! Feel free to ask questions if you’re not sure.
 
 ## Step 4: Baseline Model 
-- ### Baseline Model: 
-
-Our model uses four features to predict the duration of a power outage. The features are state which is nominal, cause which we are treating as nominal (we have not ranked causes in any way), anomaly level which is quantitative, and customers affected which is quantitative. We performed one hot encoding using OneHotEncoder for the categorical features. We also used PolynomialFeatures for the quantitative features.
-ed PolynrmialFeatures f we took mean squared error for the training data and mean squared data for the validation data. For one of our train test splits, we found the averages of these values to be Training MSE: 14407167.553053152, Validation MSE: 32018249.814064648. We do not believe this model is good because considering that
-duration is measured in minutes, these are very large discrepencies. meworks in the past have lost points for not doing so.
+- Our model uses four features to predict the duration of a power outage. The features are state which is nominal, cause which we are treating as nominal (we have not ranked causes in any way), anomaly level which is quantitative, and customers affected which is quantitative. We performed one hot encoding using OneHotEncoder for the categorical features. We also used PolynomialFeatures for the quantitative features.
+- To measure performance, we took mean squared error for the training data and mean squared data for the validation data. For one of our train test splits, we found the averages of these values to be: 
+  Training MSE: 14407167.553053152, Validation MSE: 32018249.814064648
+  - We do not believe this model is good because considering that
+duration is measured in minutes, these are very large discrepancies.
 
 ## Step 5: Final Model 
-- ### Final Model: 
-The feature that we added was a StandardScaler for the numerical columns. The two numerical columns were number of customers affected and the anomaly level which have different units. Since these features have different units, standardizing improved the accuracy of predictions.
-Another feature that we added was a search for the best polynomial feature number by using GridSearchCV. Since we somewhat randomly chose 8 for the original model, it made sense for us to do a search for the best value. 
+- The feature that we added was a StandardScaler for the numerical columns. The two numerical columns were number of customers affected and the anomaly level which have different units. Since these features have different units, standardizing improved the accuracy of predictions.
+- Another feature that we added was a search for the best polynomial feature number by using GridSearchCV. Since we somewhat randomly chose 8 for the original model, it made sense for us to do a search for the best value. 
 
-We used Linear Regression and the most optimal hyperparemter for polynomial feature was one. This indicated to us that we should not have used it in our original model. We used GridSearchCV to select the hyperparameters.
-Our Final Model performed better for both training and validation data but more significantly for validation data. The ability to predict unseen data is important and our Final Model was much better at this. 
+- We used Linear Regression and the most optimal hyperparemter for polynomial feature was one. This indicated to us that we should not have used it in our original model. We used GridSearchCV to select the hyperparameters.
+- Our Final Model performed better for both training and validation data but more significantly for validation data. The ability to predict unseen data is important and our Final Model was much better at this. 
