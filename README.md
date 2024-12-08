@@ -39,7 +39,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   | MN     | Minnesota |       1860 | severe weather |    -1.4 |       60000 |
 
 ### Univariate Analysis: 
-  1. **Pie Chart -- Distribution of Outage Causes in Dataset**
+  **Pie Chart -- Distribution of Outage Causes in Dataset**
   - This plot shows the distribution  of outage causes within our dataset. It shows that there is a large percentage of outages caused by severe weather, almost 2/3, followed by intentional attack and system operability disruptions, making up almost 1/4 combined.
   - This helps us answer our initial question since it addresses the proportion of causes behind outages, which may affect duration. 
   <iframe
@@ -48,7 +48,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
     height="600"
     frameborder="0"
   ></iframe>
-  2. **Histogram -- Distribution of Duration**
+  **Histogram -- Distribution of Duration**
   - This plot shows the distribution  of power outage durations within our dataset. It shows a trend in our data, with most power outage events being under 1000 minutes, with longer outage durations being rarer. 
   - This helps us answer our initial question since it addresses how long outages usually last, and how those durations are spread. 
   <iframe
@@ -59,7 +59,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   ></iframe>
 
 ### Bivariate Analysis:
-  3. **Choropleth -- Mean Outage Duration and Most Common Cause of Outages by State**
+  **Choropleth -- Mean Outage Duration and Most Common Cause of Outages by State**
   - This plot shows the mean outage duration, as well as the most common cause for outages, grouped by state. This highlights which states usually experience higher duration outages, as well as the most common cause of those outages, which may impact duration. 
   - This illustrates two of the factors that will go into our prediction of duration, and how they might be linked. 
   <iframe
@@ -68,7 +68,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
     height="600"
     frameborder="0"
   ></iframe>
-  4. **Box Plot -- Distribution of Duration by Cause**
+  **Box Plot -- Distribution of Duration by Cause**
   - This plot shows the distribution of outage duration grouped by cause. This highlights how different causes of outages affect the duration of the outage. For example, severe weather had many outliers, while fuel supply emergencies have a wide range of durations and a high average duration, while islanding had shorter durations. 
   - This illustrates cause of outage affects duration of outage, which is pivotal to answering our primary question of how that factor affects outage duration
   <iframe
