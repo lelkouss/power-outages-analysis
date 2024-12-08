@@ -23,7 +23,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 | 'OUTAGE.DURATION'    | Duration of outage in minutes                                | 
 
 ## Step 2: Data Cleaning and Exploratory Analysis
-- ### Data Cleaning: 
+### Data Cleaning: 
 1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION and CUSTOMERS.AFFECTED both had columns that contained NaN values.
 2. We dropped any rows containing NaN values for the two columns identified as containing those values. 
 3. We remaned columns to easier to use/read names. 
@@ -38,50 +38,47 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   | MN     | Minnesota |       1740 | severe weather |     1.2 |      250000 |
   | MN     | Minnesota |       1860 | severe weather |    -1.4 |       60000 |
 
-- ### Univariate Analysis: 
+### Univariate Analysis: 
   1. **Pie Chart -- Distribution of Outage Causes in Dataset**
   - This plot shows the distribution  of outage causes within our dataset. It shows that there is a large percentage of outages caused by severe weather, almost 2/3, followed by intentional attack and system operability disruptions, making up almost 1/4 combined.
   - This helps us answer our initial question since it addresses the proportion of causes behind outages, which may affect duration. 
-  
-  - <iframe
+  <iframe
     src="assets/pie-chart.html"
     width="800"
     height="600"
     frameborder="0"
   ></iframe>
-
   2. **Histogram -- Distribution of Duration**
   - This plot shows the distribution  of power outage durations within our dataset. It shows a trend in our data, with most power outage events being under 1000 minutes, with longer outage durations being rarer. 
   - This helps us answer our initial question since it addresses how long outages usually last, and how those durations are spread. 
-  - <iframe
+  <iframe
     src="assets/hist.html"
     width="800"
     height="600"
     frameborder="0"
   ></iframe>
 
-- ### Bivariate Analysis:
+### Bivariate Analysis:
   3. **Choropleth -- Mean Outage Duration and Most Common Cause of Outages by State**
   - This plot shows the mean outage duration, as well as the most common cause for outages, grouped by state. This highlights which states usually experience higher duration outages, as well as the most common cause of those outages, which may impact duration. 
   - This illustrates two of the factors that will go into our prediction of duration, and how they might be linked. 
-  - <iframe
+  <iframe
     src="assets/choropleth.html"
     width="800"
     height="600"
     frameborder="0"
   ></iframe>
-
   4. **Box Plot -- Distribution of Duration by Cause**
   - This plot shows the distribution of outage duration grouped by cause. This highlights how different causes of outages affect the duration of the outage. For example, severe weather had many outliers, while fuel supply emergencies have a wide range of durations and a high average duration, while islanding had shorter durations. 
   - This illustrates cause of outage affects duration of outage, which is pivotal to answering our primary question of how that factor affects outage duration
-  - <iframe
+  <iframe
     src="assets/box-plot.html"
     width="800"
     height="600"
     frameborder="0"
   ></iframe>
 
-- ### Interesting Aggregates: 
+### Interesting Aggregates: 
   This grouped table allows us to look at the most common cause of outage for each state as well as the mean duration in minutes for each state. 
 
   | state      | abbr   | cause             |   duration |
@@ -92,14 +89,17 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   | California | CA     | severe weather    |   2289.69  |
   | Colorado   | CO     | severe weather    |   1178.6   |
 
-- ### Imputation: 
+### Imputation: 
 We decided not to impute duration because we wanted to use start time and end time to fill in duration values. However, we realized that if there was NaN for duration, then at least one of the start time or end time was also NaN. We did not feel comfortable filling in with any other values since there is a lot of variety in all of our columns, so something like the mean would not accurately reflect the data.
 
 ## Step 3: Framing a Prediction Problem 
-- ### Problem Identification:
+### Problem Identification:
   - Our prediction problem is: How do the cause of outage, state, anomaly level, and number of customers affected associate with the duration of an outage? 
+
   - This is a regression problem because we are trying to predict the value, duration. We chose the response value, duration, because given the cause, anomaly level, US state, and number of customers affected, people are likely curious about how long the outage will last. 
+  
   - We will know all of the features (anomaly level, state, cause, and customers affected) at the time of prediction because these values are determined before the outage is resolved. 
+  
   - The metric that we will use to evaluate our model is mean squared error because we are trying to minimize how far our predictions are from the actual duration that the outage lasted.
 
 ## Step 4: Baseline Model
@@ -110,9 +110,11 @@ We decided not to impute duration because we wanted to use start time and end ti
   - customers affected which is quantitative. 
 
 - We performed one hot encoding using OneHotEncoder for the categorical features. We also used PolynomialFeatures for the quantitative features.
+
 - To measure performance, we took mean squared error for the training data and mean squared data for the validation data. For one of our train-test splits, we found the averages of these values to be:
   - Training MSE: 20755913.197023116
   - Validation MSE: 21225479.300911967
+
 - We do not believe this model is good because when considering that
 duration is measured in minutes, these are very large discrepancies.
 
