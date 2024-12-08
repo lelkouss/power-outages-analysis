@@ -1,8 +1,7 @@
 # Predicting Power Outage Duration: An Exploratory Analysis
-Portfolio Homework for EECS 398: Practical Data Science
 
 ## Step 1: Introduction 
-The dataset we chose to use is the power outages dataset describing major power outage events in the continental U.S., which we retrived from [this ScienceDirect article](https://www.sciencedirect.com/science/article/pii/S2352340918307182) and [this Purdue link to the dataset](https://engineering.purdue.edu/LASCI/research-data/outages). 
+The dataset we chose to use is the power outages dataset describing major power outage events in the continental U.S., which we retrieved  from [this ScienceDirect article](https://www.sciencedirect.com/science/article/pii/S2352340918307182) and [this Purdue link to the dataset](https://engineering.purdue.edu/LASCI/research-data/outages). 
 
 ### Reasoning Behind selection:
 We are not familiar with League of Legends, and power outages were more interesting to us than recipes. The example questions for recipes seem easier to intuitively predict ourselves because food and recipes are familiar, whereas we are genuinely curious about what we might find in the power outages data because we are less familiar with it. This dataset also has a high impact, since power outages affect many people
@@ -17,7 +16,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 | name                 | description                                                  |
 |:---------------------|:-------------------------------------------------------------|
 | 'CAUSE.CATEGORY'     | Type of cause of event                                       |
-| 'U.S._STATE'         | State event occured in                                       |
+| 'U.S._STATE'         | State event occurred in                                      |
 | 'POSTAL.CODE'	       | Abbreviation of state                                        |
 | 'CUSTOMERS.AFFECTED' | Number of customers affected by outage event                 |
 | 'ANOMALY.LEVEL'	     | Oceanic El Niño/La Niña (ONI) index -- 3 month  running mean | 
@@ -25,7 +24,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 
 ## Step 2: Data Cleaning and Exploratory Analysis
 - ### Data Cleaning: 
-1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION annd CUSTOMERS.AFFECTED both had columns that contained NaN values.
+1. We first checked all of our columns that we intended on using during the analysis for NaN values. We found that OUTAGE.DURATION and CUSTOMERS.AFFECTED both had columns that contained NaN values.
 2. We dropped any rows containing NaN values for the two columns identified as containing those values. 
 3. We remaned columns to easier to use/read names. 
 
@@ -41,7 +40,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
 
 - ### Univariate Analysis: 
   1. **Pie Chart -- Distribution of Outage Causes in Dataset**
-  - This plot shows the distribition of outage causes within our dataset. It shows that there is a large percentage of outages caused by severe weather, almost 2/3, followed by intentional attack and system operability disruptions, making up almost 1/4 combined.
+  - This plot shows the distribution  of outage causes within our dataset. It shows that there is a large percentage of outages caused by severe weather, almost 2/3, followed by intentional attack and system operability disruptions, making up almost 1/4 combined.
   - This helps us answer our initial question since it addresses the proportion of causes behind outages, which may affect duration. 
   
   - <iframe
@@ -52,7 +51,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   ></iframe>
 
   2. **Histogram -- Distribution of Duration**
-  - This plot shows the distribition of power outage durations within our dataset. It shows a trend in our data, with most power outage events being under 1000 minutes, with longer outage durations being rarer. 
+  - This plot shows the distribution  of power outage durations within our dataset. It shows a trend in our data, with most power outage events being under 1000 minutes, with longer outage durations being rarer. 
   - This helps us answer our initial question since it addresses how long outages usually last, and how those durations are spread. 
   - <iframe
     src="assets/hist.html"
@@ -62,7 +61,7 @@ How do cause of outage, state, number of customers affected, and anomaly level a
   ></iframe>
 
 - ### Bivariate Analysis:
-  3. **Chloropleth -- Mean Outage Duration and Most Common Cause of Outages by State**
+  3. **Choropleth -- Mean Outage Duration and Most Common Cause of Outages by State**
   - This plot shows the mean outage duration, as well as the most common cause for outages, grouped by state. This highlights which states usually experience higher duration outages, as well as the most common cause of those outages, which may impact duration. 
   - This illustrates two of the factors that will go into our prediction of duration, and how they might be linked. 
   - <iframe
@@ -71,8 +70,9 @@ How do cause of outage, state, number of customers affected, and anomaly level a
     height="600"
     frameborder="0"
   ></iframe>
+
   4. **Box Plot -- Distribution of Duration by Cause**
-  - This plot shows the distribution of outage duration grouped by cause. This highlights how different causes of outages affect duration of the outage. For example, severe weather had many outliers, while fuel supply emergencies havs a wide range of durations and a high average duration, while islanding had shorter durations. 
+  - This plot shows the distribution of outage duration grouped by cause. This highlights how different causes of outages affect the duration of the outage. For example, severe weather had many outliers, while fuel supply emergencies have a wide range of durations and a high average duration, while islanding had shorter durations. 
   - This illustrates cause of outage affects duration of outage, which is pivotal to answering our primary question of how that factor affects outage duration
   - <iframe
     src="assets/box-plot.html"
@@ -97,12 +97,12 @@ We decided not to impute duration because we wanted to use start time and end ti
 
 ## Step 3: Framing a Prediction Problem 
 - ### Problem Identification:
-  - Our prediction problem is: How do cause of outage, state, and number of customers affected associated with the duration of an outage? 
-  - This is a regression problem because we are trying to predict the value, duration. We chose the response value, duration, because given the cause, US state, and number of customers affected, people are likely curious about how long the outage will last. 
-  - We will know all of the features (state, cause, and customers affected) at the time of prediction because these values are determined before the outage is resolved. 
+  - Our prediction problem is: How do the cause of outage, state, anomaly level, and number of customers affected associate with the duration of an outage? 
+  - This is a regression problem because we are trying to predict the value, duration. We chose the response value, duration, because given the cause, anomaly level, US state, and number of customers affected, people are likely curious about how long the outage will last. 
+  - We will know all of the features (anomaly level, state, cause, and customers affected) at the time of prediction because these values are determined before the outage is resolved. 
   - The metric that we will use to evaluate our model is mean squared error because we are trying to minimize how far our predictions are from the actual duration that the outage lasted.
 
-## Step 4: Baseline Model 
+## Step 4: Baseline Model
 - Our model uses four features to predict the duration of a power outage. The features are: 
   - state which is nominal
   - cause which we are treating as nominal (we have not ranked causes in any way)
@@ -117,11 +117,11 @@ We decided not to impute duration because we wanted to use start time and end ti
 duration is measured in minutes, these are very large discrepancies.
 
 ## Step 5: Final Model 
-- The feature that we added was a StandardScaler for the numerical columns. The two numerical columns were number of customers affected and the anomaly level which have different units. Since these features have different units, standardizing improved the accuracy of predictions.
+- The feature that we added was a StandardScaler for the numerical columns. The two numerical columns were the number of customers affected and the anomaly level which have different units. Since these features have different units, standardizing improved the accuracy of predictions.
 
 - Another feature that we added was a search for the best polynomial feature number by using GridSearchCV. Since we somewhat randomly chose 8 for the original model, it made sense for us to do a search for the best value. 
 
-- We used Linear Regression and the most optimal hyperparemter for polynomial feature was 2. We used GridSearchCV to select the hyperparameters.
+- We used Linear Regression and the most optimal hyperparemter for polynomial features was 2. We used GridSearchCV to select the hyperparameters.
 
 - Our final model performed better for both training and validation data but more significantly for validation data. The ability to predict unseen data is important and our final model was much better at this.
 
